@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    container_name: nest-url-shortener
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/urlshortener
+      - JWT_SECRET=supersecretkey 
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:5
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
